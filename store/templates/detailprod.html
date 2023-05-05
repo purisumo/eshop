@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+  <div class="px-4 pt-5 my-5 text-center">
+    <h1 class="display-4 fw-bold">{{product.name}}</h1>
+    <div class="col-lg-6 mx-auto">
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+      <div class="container px-5">
+        <img src="{{product.image.url}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      <p class="lead mb-4">{{product.description}}</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+						<form action="{% url 'cart' %}" method="POST" class="btn-block">
+							{% csrf_token %}
+							<input hidden type="text" name='product' value='{{product.id}}'>
+							<input type="submit" class="float-right btn btn-success form-control"
+								value="Add To Cart">
+						</form>
+      </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

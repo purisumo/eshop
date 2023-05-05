@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bf25fpq-@c$44jj+wzh+3-=a&n^=c6^b(dltyiaem=-*zyptru
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gspot.onrender.com']
 
 
 # Application definition

@@ -85,4 +85,4 @@ class Order(models.Model):
         return Order.objects.filter(customer=customer_id).order_by('-date')
     
     def __str__(self):
-        return self.product
+        return self.phone

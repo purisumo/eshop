@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'hehee',
@@ -87,6 +87,13 @@ DATABASES = {
         # 'PASSWORD': '',
         # 'HOST': 'localhost',
         # 'PORT': '3306'
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mdfgystk',
+        'USER': 'mdfgystk',
+        'PASSWORD': '9xdVvrF-m0qY3hIOETWnipsWZxBpXyjV',
+        'HOST': 'tiny.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
 

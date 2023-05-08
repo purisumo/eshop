@@ -9,12 +9,12 @@
     <h1 class="display-4 fw-bold">{{product.name}}</h1>
     <div class="col-lg-6 mx-auto">
     </div>
-    <div class="overflow-hidden" style="max-height: 30vh;">
+    <div class="overflow-hidden">
       <div class="container px-5">
-        <img src="{{product.image.url}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+        <img src="{{product.image.url}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" style="max-width: 400px; max-height: 700px" loading="lazy">
       <p class="lead mb-4">{{product.description}}</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-						<form action="{% url 'cart' %}" method="POST" class="btn-block">
+						<form action="/#{{product.id}}" method="POST" class="btn-block">
 							{% csrf_token %}
 							<input hidden type="text" name='product' value='{{product.id}}'>
 							<input type="submit" class="float-right btn btn-success form-control"

@@ -4,7 +4,11 @@ from .models import *
 from django.views import View
 from .middlewares.auth import auth_middleware
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q, Sum
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils import timezone
+import json
+from django.http import JsonResponse
 # Create your views here.
 class Index(View):
 
@@ -177,7 +181,6 @@ class CheckOut(View):
 						quantity=cart.get(str(product.id)))
 			order.save()
 		request.session['cart'] = {}
-
 		return redirect('cart')
 
 class Cart(View):
@@ -191,12 +194,50 @@ class OrderView(View):
 
 	def get(self, request):
 		customer = request.session.get('customer')
-		orders = Order.get_orders_by_customer(customer)
+		orders = Order.get_orders_by_customer(customer).filter(status=False)
 		print(orders)
 		return render(request, 'orders.html', {'orders': orders})
+
+
+class OrderViewCom(View):
+
+	def get(self, request):
+		customer = request.session.get('customer')
+		orders = Order.get_orders_by_customer(customer).filter(status=True)
+		print(orders)
+		return render(request, 'completed.html', {'orders': orders})
 
 def prodview(request, id):
 
 	product = get_object_or_404(Products, pk=id)
 
 	return render(request, 'detailprod.html', {'product':product})
+
+def search(request):
+
+	query = request.GET.get('query', '')
+
+	products = Products.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+
+	return render(request, 'search.html', {'query': query, 'products':products})
+
+@staff_member_required(login_url='/store')
+def dashboard(request):
+
+	order = Order.objects.all()
+	product_sold = Order.objects.filter(status=True)
+	products = Products.objects.all()
+	customers = Customer.objects.all()
+	income = Order.objects.filter(status=True).aggregate(Sum('price'))
+	income_by_date = Order.objects.filter(status=True).values('date').annotate(total_income=Sum('price'))
+	context = {
+		'order': order,
+		'product_sold': product_sold,
+		'customers': customers,
+		'income': income,
+		'income_by_date': income_by_date,
+		'products': products,
+	}
+
+	return render(request, 'dashboard.html', context)
+

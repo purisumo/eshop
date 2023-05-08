@@ -62,7 +62,7 @@ class Products(models.Model):
             return Products.get_all_products()
         
     def __str__(self):
-        return self.name
+        return f'{self.category} - {self.name}'
   
   
 class Order(models.Model):
@@ -75,6 +75,7 @@ class Order(models.Model):
     address = models.CharField(max_length=50, default='', blank=True)
     phone = models.CharField(max_length=50, default='', blank=True)
     date = models.DateField(default=datetime.datetime.today)
+    order_create = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
   
     def placeOrder(self):
@@ -85,4 +86,16 @@ class Order(models.Model):
         return Order.objects.filter(customer=customer_id).order_by('-date')
     
     def __str__(self):
-        return self.phone
+        return f'{self.phone} - {self.status} - {self.order_create} - {self.price}'
+    
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name}"
+
+    @property
+    def price(self):
+        return self.quantity * self.product.price

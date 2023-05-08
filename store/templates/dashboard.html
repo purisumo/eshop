@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Custom styles for this template -->
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'store'%}">GSPOT</a>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#chart">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#customers">
+                  <span data-feather="users"></span>
+                  Customers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#orders">
+                  <span data-feather="file"></span>
+                  Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#product">
+                  <span data-feather="shopping-cart"></span>
+                  Products Sold
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#income">
+                  <span data-feather="bar-chart-2"></span>
+                  Total Income
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          {% block content%}
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2" id="chart">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+            </div>
+          </div>
+
+          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+
+          <h2 id="customers">Customers</h2>
+          <div class="table-responsive mt-5 mb-5" >
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for customer in customers %}
+                <tr>
+                  <td>{{customer.first_name}}</td>
+                  <td>{{customer.last_name}}</td>
+                  <td>{{customer.phone}}</td>
+                  <td>{{customer.email}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="card text-center mt-5 mb-5" id="orders" style="border-color: forestgreen;">
+            <div class="card-header" style="background: forestgreen;">
+              <h3>Orders</h3>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Total Number of Orders</h5>
+              <h1 class="card-text">{{order.count}}</h1>
+            </div>
+          </div>
+          <div class="card text-center mt-5 mb-5" id="product" style="border-color: forestgreen;">
+            <div class="card-header" style="background: forestgreen;">
+              <h3>Products Sold</h3>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Total Number of Products Sold</h5>
+              <h1 class="card-text">{{product_sold.count}}</h1>
+            </div>
+          </div>
+          <div class="card text-center mt-5 mb-5" id="income" style="border-color: forestgreen;">
+            <div class="card-header" style="background: forestgreen;">
+              <h3>Total Income</h3>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Total Income</h5>
+              <h1 class="card-text">{{income.price__sum}} PHP</h1>
+            </div>
+          </div>
+          <canvas class="my-4" id="myChart2" width="900" height="380"></canvas>
+          {% endblock %}
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../../../dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [{% for product in products %}"{{ product.name }}", {% endfor %}],
+            datasets: [{
+              label: 'Products Sold',
+              data: [{% for product in product_sold %}"{{ product.price }}", {% endfor %}],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+      <script>
+        const ctt = document.getElementById('myChart2');
+
+        new Chart(ctt, {
+          type: 'bar',
+          data: {
+            labels: [{% for income in income_by_date   %}"{{ income.date  }}", {% endfor %}],
+            datasets: [{
+              label: 'Total Income',
+              data: [{% for income in income_by_date   %}"{{ income.total_income  }}", {% endfor %}],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+  </body>
+</html>

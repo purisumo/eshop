@@ -72,6 +72,10 @@
   <title>E-commerce Website</title>
 
   <style>
+    body{
+      background-color: rgb(255, 255, 255);
+    }
+    
     nav{
       background-color: green;
     }
@@ -140,8 +144,10 @@
           <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
         </li>
         {% endif %}
-
-
+        <form method="get" action="{% url 'search' %}" class="search-form">
+            <span class="icon bi-search"></span>
+            <input name="query" type="text"  placeholder="Search" class="form-control">
+          </form> 
       </ul>
 
 
@@ -149,6 +155,37 @@
   </nav>
   <!---->
   {% block content %}{% endblock %}
+      <div class="mt-5 pt-5 pb-5 footer" style="background-color: forestgreen;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-xs-12 about-company">
+          <h2>GSPOT-TECH</h2>
+          <p class="pr-5 text-white-50">We are a tech company that specializes in selling high-quality computer products, including laptops, desktops, and accessories. Our products are designed to meet the needs of both individuals and businesses, and we are committed to providing excellent customer service and support.</p>
+          <p><a href="#"><i class="fa fa-facebook-square mr-1"></i></a><a href="#"><i class="fa fa-linkedin-square"></i></a></p>
+        </div>
+        <div class="col-lg-3 col-xs-12 links">
+          <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+            <ul class="m-0 p-0">
+              <li>- <a href="#">Facebook</a></li>
+              <li>- <a href="#">Twitter</a></li>
+              <li>- <a href="#">Youtube</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-4 col-xs-12 location">
+          <h4 class="mt-lg-0 mt-sm-4">Location</h4>
+          <p>San jose, Zamboanga City</p>
+          <p class="mb-0"><i class="fa fa-phone mr-3"></i>09150023321</p>
+          <p><i class="fa fa-envelope-o mr-3"></i>Gspottect@gmail.com</p>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col copyright">
+          <p class=""><small class="text-white-50">© 2023. All Rights Reserved.</small></p>
+        </div>
+      </div>
+    </div>
+    </div>
+
   <script src="/static/js/main.js"></script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

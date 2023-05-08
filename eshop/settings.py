@@ -77,14 +77,43 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgres://eshop_fxtw_user:4HVzlK0ziqSIHThwhcagKfF2DZuREEkE@dpg-chad6iak728r881as8ag-a.singapore-postgres.render.com/eshop_fxtw',
-        conn_max_age=600
-    )
-}
 
+# 'default': dj_database_url.config(
+#         # Feel free to alter this value to suit your needs.
+#         default='postgres://eshop_fxtw_user:4HVzlK0ziqSIHThwhcagKfF2DZuREEkE@dpg-chad6iak728r881as8ag-a.singapore-postgres.render.com/eshop_fxtw',
+#         conn_max_age=600
+#     )
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
+        # postgreslive
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'qvmaadup',
+        # 'USER': 'qvmaadup',
+        # 'PASSWORD': '9M0j5yPa9j1Hm4nyzb-vj5slJWVYYO8W',
+        # 'HOST': 'tiny.db.elephantsql.com',
+        # 'PORT': '5432',
+
+        #mysql localhost
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'tests',
+        # 'USER': 'root',
+        # 'PASSWORD': '',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306'
+
+        # mysql live
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'epiz_33766009_wesmaarrdec',
+        # 'USER': 'epiz_33766009',
+        # 'PASSWORD': '88tn1wEA7NsHph5',
+        # 'HOST': 'sql204.epizy.com',
+        # 'PORT': '3306'
+        
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

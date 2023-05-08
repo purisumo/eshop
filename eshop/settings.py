@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,24 +78,11 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'hehee',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306'
-
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mdfgystk',
-        'USER': 'mdfgystk',
-        'PASSWORD': '9xdVvrF-m0qY3hIOETWnipsWZxBpXyjV',
-        'HOST': 'tiny.db.elephantsql.com',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgres://eshop_fxtw_user:4HVzlK0ziqSIHThwhcagKfF2DZuREEkE@dpg-chad6iak728r881as8ag-a.singapore-postgres.render.com/eshop_fxtw',
+        conn_max_age=600
+    )
 }
 
 
